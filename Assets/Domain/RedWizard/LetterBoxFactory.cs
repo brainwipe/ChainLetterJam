@@ -6,6 +6,7 @@ namespace Lang.ChainLetterJam
 {
     public class LetterBoxFactory : MonoBehaviour
     {
+        public Yellowy yellowy;
         public LetterBox prefab;
         public float spawnTimeSeconds = 3f;
         float spawnTimeRemaining;
@@ -25,7 +26,7 @@ namespace Lang.ChainLetterJam
                 var letterBox = Instantiate(prefab);
                 var unitCircle = Random.insideUnitCircle.normalized;
                 letterBox.transform.position = new Vector3(unitCircle.x, unitCircle.y, 0) * distanceToStartFrom;
-
+                letterBox.SetRandomLetter(yellowy.CurrentLetter);
                 spawnTimeRemaining = spawnTimeSeconds;
             }
         }

@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 2895237047070177956}
   - component: {fileID: 4753034241543270524}
   m_Layer: 0
-  m_Name: Letterbox
-  m_TagString: Untagged
+  m_Name: LetterBox
+  m_TagString: LetterBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7df2f851eb2f7624d946f83bb7460527, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,3 +126,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 3
+  letterTexturesInput:
+  - {fileID: 2800000, guid: d815b3485f6830744923c55fc5bcc7a2, type: 3}
+  - {fileID: 2800000, guid: 7e51080bb4f94694d8122085e14e9566, type: 3}
+  - {fileID: 2800000, guid: 1c58eb386155c1644ab78040b7efef03, type: 3}
+  - {fileID: 2800000, guid: 4f0ee799b1fdae74d887aa917e57e92b, type: 3}
+  - {fileID: 2800000, guid: 1af59b7f9f7f96545b61ad5a1b4e9227, type: 3}
+  - {fileID: 2800000, guid: 5bb4fe40d0fc08640a23f2534b6aebbb, type: 3}
+  - {fileID: 2800000, guid: e49ce2e9c63ea9043b11a348851cb3c3, type: 3}
+  - {fileID: 2800000, guid: 9f4c60eb8b6018a4ba9ba8a746ff836a, type: 3}
+  - {fileID: 2800000, guid: 4b2e7dd6ab2a0c44b8fc75434894ed4c, type: 3}
+  - {fileID: 2800000, guid: ea4875bfc260c4f4eb218ab1cd213a9d, type: 3}
+  - {fileID: 2800000, guid: bfea7bdd9da9055428d58a87bbcdcc42, type: 3}
+  - {fileID: 2800000, guid: e656c9c430233e54a9a89efc544cd482, type: 3}
+  - {fileID: 2800000, guid: 2ad3bf06fbb4af94e9be678da05661a8, type: 3}
+  - {fileID: 2800000, guid: 25896a7cc05a1db4aa4501f7ddcdbd64, type: 3}
+  - {fileID: 2800000, guid: 9a3b986c3b75c224ea0ab20859674f17, type: 3}
+  - {fileID: 2800000, guid: 4755085b5979b994f99a9c8f8f1b4487, type: 3}
+  - {fileID: 2800000, guid: 6312568245d05ed479a61584c4d2d6be, type: 3}
+  - {fileID: 2800000, guid: 5b5108dddc2d5654a98bdac56ca5a32d, type: 3}
+  - {fileID: 2800000, guid: 9ae9f88590f644d4c87d6edf3dc6cd57, type: 3}
+  - {fileID: 2800000, guid: 22cf8dca12bfff44a937b483c76a1e67, type: 3}
+  - {fileID: 2800000, guid: 1eeb46cfcc72f3640a4fe60e1a87e6da, type: 3}
+  - {fileID: 2800000, guid: 49fe84811c1dbf2428be4a8546c611c1, type: 3}
+  - {fileID: 2800000, guid: d51326b78dacd5c49a2620b9618188c5, type: 3}
+  - {fileID: 2800000, guid: 7ca5d559120d68d4c97365b0f474611d, type: 3}
+  - {fileID: 2800000, guid: 9c7166a70bf565b4387f3de87943ca53, type: 3}
+  - {fileID: 2800000, guid: 56e808b87c333c247843680ccab6518b, type: 3}
+  material: {fileID: 2100000, guid: 7df2f851eb2f7624d946f83bb7460527, type: 2}
+  IsSnagged: 0
+  CameraPosition: {fileID: 0}
