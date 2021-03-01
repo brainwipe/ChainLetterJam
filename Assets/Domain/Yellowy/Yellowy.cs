@@ -8,8 +8,10 @@ namespace Lang.ChainLetterJam
     {
         public float speed = 2;
         public float direction = 0;
-        public string[] words = new[]
+        string[] words = new[]
         {
+            "a",
+            "b",
             "miziziziz",
             "vimlark",
             "zyger",
@@ -49,7 +51,8 @@ namespace Lang.ChainLetterJam
                     if (currentPosition == words[currentWord].Length)
                     {
                         currentPosition = 0;
-                        currentWord++; // TODO next word boom!
+                        currentWord++;
+                        GameManager.Instance.WordComplete();
                     }
                     
                 }

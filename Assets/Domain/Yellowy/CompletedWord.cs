@@ -8,6 +8,7 @@ namespace Lang.ChainLetterJam
     public class CompletedWord : MonoBehaviour
     {
         int letterCount;
+        [SerializeField]
         float spacing = 0.6f;
 
         public Vector3 GetPositionFor(int letterPosition) =>
@@ -20,6 +21,11 @@ namespace Lang.ChainLetterJam
         {
             letterCount++;
             return letterCount;
+        }
+
+        internal void Clear()
+        {
+            letterCount = 0;
         }
     }
 }

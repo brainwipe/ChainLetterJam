@@ -12,6 +12,7 @@ namespace Lang.ChainLetterJam
         public static string Tag = "LetterBox";
         static string AlbedoTextureMapName = "_BaseMap";
 
+        Collider myCollider;
         Rigidbody rigidBody;
         public float gravity;
         public Texture2D[] letterTexturesInput;
@@ -19,7 +20,7 @@ namespace Lang.ChainLetterJam
 
         public bool IsSnagged = false;
         CompletedWord completedWord;
-        float moveToCompletedSpeed = 0.02f;
+        float moveToCompletedSpeed = 0.1f;
         int snaggedPosition;
 
         [SerializeField]
@@ -28,6 +29,7 @@ namespace Lang.ChainLetterJam
         void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
+            myCollider = GetComponent<Collider>();
             material = GetComponent<MeshRenderer>().material;
             cameraPosition = GameObject.Find("Main Camera").transform;
         }
@@ -52,6 +54,36 @@ namespace Lang.ChainLetterJam
             var texture2D = letterTexturesInput.Single(x => x.name == letter.ToUpper());
             name = texture2D.name;
             material.SetTexture(AlbedoTextureMapName, texture2D);
+        }
+
+        internal void PrepareToDie()
+        {
+            myCollider.enabled = false;
+            rigidBody.isKinematic = false;
+        }
+
+        internal void Boom()
+        {
+            if (IsSnagged)
+            {
+                Invoke(nameof(BangDestroyAndRestart), 3);
+            }
+            else
+            {
+                BangDestroy();
+            }
+            
+        }
+
+        void BangDestroyAndRestart()
+        {
+            BangDestroy();
+        }
+
+        void BangDestroy()
+        {
+            rigidBody.AddExplosionForce(1500f, Vector3.zero, 100);
+            Destroy(gameObject, 3);
         }
 
         internal void SetRandomLetter(string bias)
