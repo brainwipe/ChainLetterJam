@@ -23,6 +23,9 @@ namespace Lang.ChainLetterJam
         float moveToCompletedSpeed = 0.1f;
         int snaggedPosition;
 
+        bool IsUI = false;
+        Vector3 uiPosition;
+
         [SerializeField]
         Transform cameraPosition;
 
@@ -36,17 +39,26 @@ namespace Lang.ChainLetterJam
 
         void FixedUpdate()
         {
-            if (IsSnagged)
+            if (IsUI)
             {
-                transform.position = transform.position + ((completedWord.GetPositionFor(snaggedPosition) - transform.position) * moveToCompletedSpeed);
-                transform.LookAt(cameraPosition.position);
-                transform.localScale = transform.localScale + ((completedWord.transform.localScale - transform.localScale) * moveToCompletedSpeed);
+                MoveTo(uiPosition, Vector3.one);
+            }
+            else if (IsSnagged)
+            {
+                MoveTo(completedWord.GetPositionFor(snaggedPosition), completedWord.transform.localScale);
             }
             else
             {
                 rigidBody.AddForce(-transform.position.normalized * gravity);
             }
              
+        }
+
+        void MoveTo(Vector3 place, Vector3 scale)
+        {
+            transform.position = transform.position + ((place - transform.position) * moveToCompletedSpeed);
+            transform.LookAt(cameraPosition.position);
+            transform.localScale = transform.localScale + ((scale - transform.localScale) * moveToCompletedSpeed);
         }
 
         internal void SetLetter(string letter)
@@ -84,6 +96,12 @@ namespace Lang.ChainLetterJam
         {
             rigidBody.AddExplosionForce(1500f, Vector3.zero, 100);
             Destroy(gameObject, 3);
+        }
+
+        internal void SetUi(Vector3 position)
+        {
+            uiPosition = position;
+            IsUI = true;
         }
 
         internal void SetRandomLetter(string bias)

@@ -12,10 +12,10 @@ namespace Lang.ChainLetterJam
         {
             "a",
             "b",
-            "miziziziz",
-            "vimlark",
-            "zyger",
-            "yannick",
+            //"miziziziz",
+            //"vimlark",
+            //"zyger",
+            //"yannick",
         };
         int currentWord = 0;
         int currentPosition = 0;
@@ -50,8 +50,13 @@ namespace Lang.ChainLetterJam
                     currentPosition++;
                     if (currentPosition == words[currentWord].Length)
                     {
-                        currentPosition = 0;
                         currentWord++;
+                        if (currentWord == words.Length)
+                        {
+                            GameManager.Instance.Win();
+                            return;
+                        }
+                        currentPosition = 0;
                         GameManager.Instance.WordComplete();
                     }
                     

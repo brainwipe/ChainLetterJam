@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 namespace Lang.ChainLetterJam
 {
@@ -29,6 +30,15 @@ namespace Lang.ChainLetterJam
             letterBoxFactory.Reset();
         }
 
-        
+        internal void Win()
+        {
+            letterBoxFactory.Win();
+            Invoke(nameof(GoBackToMainMenu), 4);
+        }
+
+        void GoBackToMainMenu()
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

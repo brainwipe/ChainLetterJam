@@ -17,6 +17,10 @@ namespace Lang.ChainLetterJam
             set => halt1 = value; 
         }
 
+        public Transform W;
+        public Transform I;
+        public Transform N;
+
         List<LetterBox> LetterBoxes = new List<LetterBox>();
         private bool halt1;
 
@@ -35,15 +39,20 @@ namespace Lang.ChainLetterJam
             }
         }
 
+        LetterBox CreateLetter()
+        {
+            var letterBox = Instantiate(prefab);
+            var unitCircle = Random.insideUnitCircle.normalized;
+            letterBox.transform.position = new Vector3(unitCircle.x, unitCircle.y, 0) * distanceToStartFrom;
+            LetterBoxes.Add(letterBox);
+            return letterBox;
+        }
 
         void Spawn()
         {
             if (halt) return;
-            var letterBox = Instantiate(prefab);
-            var unitCircle = Random.insideUnitCircle.normalized;
-            letterBox.transform.position = new Vector3(unitCircle.x, unitCircle.y, 0) * distanceToStartFrom;
+            var letterBox = CreateLetter();
             letterBox.SetRandomLetter(yellowy.CurrentLetter);
-            LetterBoxes.Add(letterBox);
         }
 
         internal void Resume()
@@ -55,6 +64,18 @@ namespace Lang.ChainLetterJam
         internal void Reset()
         {
             Debug.Log("Factory reset");
+            BangTheLetters();
+            Invoke(nameof(KeepGoing), 5);
+        }
+
+        void KeepGoing()
+        {
+            completedWord.Clear();
+            halt = false;
+        }
+
+        void BangTheLetters()
+        {
             halt = true;
             foreach (var letterBox in LetterBoxes)
             {
@@ -65,13 +86,27 @@ namespace Lang.ChainLetterJam
                 letterBox.Boom();
             }
             LetterBoxes.Clear();
-            Invoke(nameof(KeepGoing), 5);
         }
 
-        void KeepGoing()
+        internal void Win()
         {
-            completedWord.Clear();
-            halt = false;
+            BangTheLetters();
+
+            // TODO Red Wizard Go Boom
+            // TODO Yellowy pick random spot in screen space and bounce around
+
+            var w = CreateLetter();
+            w.SetLetter("w");
+            w.SetUi(W.position);
+
+            var i = CreateLetter();
+            i.SetLetter("i");
+            i.SetUi(I.position);
+
+            var n = CreateLetter();
+            n.SetLetter("n");
+            n.SetUi(N.position);
         }
+
     }
 }

@@ -13,10 +13,12 @@ Materials
 Letters sticking to player
 
 ## Day 3
+2 hr
 Letters lining up along the bottom
 Completing word boom
 
 # Day 4
+1 hr
 Fixed the duplicate factory bug
 
 
@@ -27,3 +29,7 @@ Shader for letters
 Menus
 Sound
 JUICY JUICE	
+
+# Links
+miziziziz Wordman Saves the Day https://nartier.itch.io/wordman-saves-the-day
+vimlark Word Bounce				https://vimlark.itch.io/word-bounce
