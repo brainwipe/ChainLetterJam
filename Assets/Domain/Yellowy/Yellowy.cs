@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Lang.ChainLetterJam.LetterBox;
 
 namespace Lang.ChainLetterJam
 {
@@ -31,7 +32,7 @@ namespace Lang.ChainLetterJam
             if (collision.transform.CompareTag(LetterBox.Tag))
             {
                 var letterBox = collision.transform.GetComponent<LetterBox>();
-                if (!letterBox.IsSnagged && GameManager.Instance.CurrentLetter == letterBox.name.ToLower())
+                if (!letterBox.CurrentState.IsSnagged && GameManager.Instance.CurrentLetter == letterBox.name.ToLower())
                 {
                     letterBox.Snagged(completedWord);
                     GameManager.Instance.NextLetter();

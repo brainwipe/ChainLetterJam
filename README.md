@@ -38,10 +38,9 @@ Weekend - nothing!
 
 # Day 10
 Most game systems in place
-
+Make letters appear just outside of view box rather than on unit square
 
 ## TODO
-Make letters appear just outside of view box rather than on unit square
 Shader for letters or just change base albedo?
 Menu - title and controls
 Sound

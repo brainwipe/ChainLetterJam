@@ -6,11 +6,12 @@ using UnityEngine;
 
 namespace Lang.ChainLetterJam
 {
-
-    public class LetterBox : MonoBehaviour
+    public partial class LetterBox : MonoBehaviour
     {
+        public LetterBoxStates.State CurrentState { get; private set; } = LetterBoxStates.Default;
+
         public static string Tag = "LetterBox";
-        static string AlbedoTextureMapName = "_BaseMap";
+        static string AlbedoTextureMapName = "LetterTexture";
 
         Collider myCollider;
         Rigidbody rigidBody;
@@ -18,8 +19,6 @@ namespace Lang.ChainLetterJam
         public Texture2D[] letterTexturesInput;
         public Material material;
 
-        public bool IsSnagged = false;
-        bool IsFwoop = false;
         CompletedWord completedWord;
         float moveToCompletedSpeed = 0.1f;
         float fwoopRate = 0.01f;
@@ -41,16 +40,18 @@ namespace Lang.ChainLetterJam
 
         void FixedUpdate()
         {
+            CheckState();
+
             if (IsUI)
             {
                 MoveTo(uiPosition, Vector3.one);
             }
-            else if (IsFwoop)
+            else if (CurrentState.IsFwoop)
             {
                 transform.localScale = transform.localScale + (transform.localScale * fwoopRate);
                 rigidBody.AddForce(-transform.position.normalized * gravity * 1.5f);
             }
-            else if (IsSnagged)
+            else if (CurrentState.IsSnagged)
             {
                 MoveTo(completedWord.GetPositionFor(snaggedPosition), completedWord.transform.localScale);
             }
@@ -58,7 +59,22 @@ namespace Lang.ChainLetterJam
             {
                 rigidBody.AddForce(-transform.position.normalized * gravity);
             }
-             
+        }
+
+        void CheckState()
+        {
+            if (CurrentState.IsSnagged || CurrentState.IsWin || CurrentState.IsFwoop)
+            { }
+            else if (GameManager.Instance.CurrentLetter.ToUpper() == name)
+            {
+                CurrentState = LetterBoxStates.Want;
+            }
+            else
+            {
+                CurrentState = LetterBoxStates.Default;
+            }
+
+            material.SetColor("LetterColor", CurrentState.Color);
         }
 
         void MoveTo(Vector3 place, Vector3 scale)
@@ -74,7 +90,7 @@ namespace Lang.ChainLetterJam
             name = texture2D.name;
             material.SetTexture(AlbedoTextureMapName, texture2D);
         }
-
+         
         internal void PrepareToDie()
         {
             myCollider.enabled = false;
@@ -83,7 +99,7 @@ namespace Lang.ChainLetterJam
 
         internal void Boom()
         {
-            if (IsSnagged)
+            if (CurrentState.IsSnagged)
             {
                 Invoke(nameof(BangDestroyAndRestart), 3);
             }
@@ -110,29 +126,37 @@ namespace Lang.ChainLetterJam
             IsUI = true;
         }
 
-        internal void SetRandomLetter(string bias)
+        internal void SetRandomLetter(string wanted)
         {
             if (UnityEngine.Random.Range(0, 2) == 0)
             {
-                SetLetter(bias);
+                SetLetter(wanted);
                 return;
             }
+
 
             var texture2D = letterTexturesInput[UnityEngine.Random.Range(0, letterTexturesInput.Length - 1)];
             name = texture2D.name;
             material.SetTexture(AlbedoTextureMapName, texture2D);
         }
 
+        internal void Win()
+        {
+            CurrentState = LetterBoxStates.Win;
+        }
+
         internal void Fwoop()
         {
-            IsFwoop = true;
+            CurrentState = LetterBoxStates.Fwoop;
             Destroy(gameObject, 9);
         }
 
         internal void Snagged(CompletedWord completedWord)
         {
+            if (CurrentState.IsWin || CurrentState.IsFwoop) return;
+
             this.completedWord = completedWord;
-            IsSnagged = true;
+            CurrentState = LetterBoxStates.Snagged;
             snaggedPosition = completedWord.Snag();
             rigidBody.isKinematic = true;
         }

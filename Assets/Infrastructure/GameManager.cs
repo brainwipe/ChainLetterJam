@@ -25,11 +25,23 @@ namespace Lang.ChainLetterJam
         [SerializeField]
         Fader Fader;
 
-        public Level CurrentLevel => Levels[currentLevelIndex];
-        public string CurrentLetter => CurrentLevel.Word.Substring(currentLetterIndex, 1);
+        public Level CurrentLevel => currentLevelIndex < Levels.Length ? Levels[currentLevelIndex] : Levels[Levels.Length - 1];
+        public string CurrentLetter => currentLetterIndex < CurrentLevel.Word.Length ? CurrentLevel.Word.Substring(currentLetterIndex, 1) : "F";
 
         public Level[] Levels = new[]
         {
+            new Level
+            {
+                Word = "a",
+                CriticalMassLetterCount = 10
+            },
+            new Level
+            {
+                Word = "b",
+                CriticalMassLetterCount = 10
+            },
+
+            /*
             new Level
             {
                 Word = "yannick",
@@ -50,6 +62,7 @@ namespace Lang.ChainLetterJam
                 Word = "miziziziz",
                 CriticalMassLetterCount = 30
             },
+            */
 
         };
 

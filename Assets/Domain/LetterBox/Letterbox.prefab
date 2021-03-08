@@ -155,4 +155,4 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 56e808b87c333c247843680ccab6518b, type: 3}
   material: {fileID: 2100000, guid: 7df2f851eb2f7624d946f83bb7460527, type: 2}
   IsSnagged: 0
-  CameraPosition: {fileID: 0}
+  cameraPosition: {fileID: 0}

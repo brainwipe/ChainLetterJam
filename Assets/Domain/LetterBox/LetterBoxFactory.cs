@@ -12,6 +12,8 @@ namespace Lang.ChainLetterJam
         float spawnTimeRemaining;
         public int boxCount;
         bool halt;
+        bool isWin = false;
+        bool isLose = false;
         Camera cam;
 
         public Transform W;
@@ -40,6 +42,7 @@ namespace Lang.ChainLetterJam
         {
             var letterBox = Instantiate(prefab);
             letterBox.transform.position = GetPosition();
+            letterBox.transform.rotation = Quaternion.Euler(0,0,180);
             LetterBoxes.Add(letterBox);
             return letterBox;
         }
@@ -121,6 +124,8 @@ namespace Lang.ChainLetterJam
 
         internal void Win()
         {
+            if (isLose) return;
+            isWin = true;
             BangTheLetters();
 
             // TODO Red Wizard Go Boom
@@ -129,18 +134,23 @@ namespace Lang.ChainLetterJam
             var w = CreateLetter();
             w.SetLetter("w");
             w.SetUi(W.position);
+            w.Win();
 
             var i = CreateLetter();
             i.SetLetter("i");
             i.SetUi(I.position);
+            i.Win();
 
             var n = CreateLetter();
             n.SetLetter("n");
             n.SetUi(N.position);
+            n.Win();
         }
 
         internal void Lose()
         {
+            if (isWin) return;
+            isLose = true;
             for (int i = 1; i < 30; i++)
             {
                 var letterBox = CreateLetter();
