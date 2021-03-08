@@ -41,13 +41,13 @@ namespace Lang.ChainLetterJam
         LetterBox CreateLetter()
         {
             var letterBox = Instantiate(prefab);
-            letterBox.transform.position = GetPosition();
+            letterBox.transform.position = GetPosition(cam);
             letterBox.transform.rotation = Quaternion.Euler(0,0,180);
             LetterBoxes.Add(letterBox);
             return letterBox;
         }
 
-        Vector3 GetPosition()
+        public static Vector3 GetPosition(Camera cam)
         {
             var side = Random.Range(0, 4);
             var x = 0;
@@ -122,6 +122,13 @@ namespace Lang.ChainLetterJam
             LetterBoxes.Clear();
         }
 
+        void CreateWin(string letter, Vector3 position)
+        {
+            var letterBox = CreateLetter();
+            letterBox.SetLetter(letter);
+            letterBox.Win(position);
+        }
+
         internal void Win()
         {
             if (isLose) return;
@@ -131,20 +138,9 @@ namespace Lang.ChainLetterJam
             // TODO Red Wizard Go Boom
             // TODO Yellowy pick random spot in screen space and bounce around
 
-            var w = CreateLetter();
-            w.SetLetter("w");
-            w.SetUi(W.position);
-            w.Win();
-
-            var i = CreateLetter();
-            i.SetLetter("i");
-            i.SetUi(I.position);
-            i.Win();
-
-            var n = CreateLetter();
-            n.SetLetter("n");
-            n.SetUi(N.position);
-            n.Win();
+            CreateWin("w", W.position);
+            CreateWin("i", I.position);
+            CreateWin("n", N.position);
         }
 
         internal void Lose()

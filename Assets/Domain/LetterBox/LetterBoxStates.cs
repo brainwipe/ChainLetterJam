@@ -10,6 +10,8 @@ namespace Lang.ChainLetterJam
             public bool IsSnagged;
             public bool IsWin;
             public bool IsFwoop;
+            public bool IsUI;
+            public bool IsDestroyed;
         }
 
         public static State Default { get; } = new State
@@ -31,13 +33,26 @@ namespace Lang.ChainLetterJam
         public static State Win { get; } = new State
         {
             Color = Color.yellow,
-            IsWin = true
+            IsWin = true,
+            IsUI = true
         };
 
         public static State Fwoop { get; } = new State
         {
             Color = Color.gray,
             IsFwoop = true
+        };
+
+        public static State Menu { get; } = new State
+        {
+            Color = Color.cyan,
+            IsUI = true
+        };
+
+        public static State Destroyed { get; } = new State
+        {
+            Color = Color.black,
+            IsDestroyed = true
         };
     }
 }

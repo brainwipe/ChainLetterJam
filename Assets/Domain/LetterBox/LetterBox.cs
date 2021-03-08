@@ -24,7 +24,6 @@ namespace Lang.ChainLetterJam
         float fwoopRate = 0.01f;
         int snaggedPosition;
 
-        bool IsUI = false;
         Vector3 uiPosition;
 
         [SerializeField]
@@ -42,7 +41,9 @@ namespace Lang.ChainLetterJam
         {
             CheckState();
 
-            if (IsUI)
+            if (CurrentState.IsDestroyed) return;
+
+            if (CurrentState.IsUI)
             {
                 MoveTo(uiPosition, Vector3.one);
             }
@@ -63,7 +64,7 @@ namespace Lang.ChainLetterJam
 
         void CheckState()
         {
-            if (CurrentState.IsSnagged || CurrentState.IsWin || CurrentState.IsFwoop)
+            if (CurrentState.IsSnagged || CurrentState.IsWin || CurrentState.IsFwoop || CurrentState.IsUI || CurrentState.IsDestroyed)
             { }
             else if (GameManager.Instance.CurrentLetter.ToUpper() == name)
             {
@@ -101,7 +102,7 @@ namespace Lang.ChainLetterJam
         {
             if (CurrentState.IsSnagged)
             {
-                Invoke(nameof(BangDestroyAndRestart), 3);
+                Invoke(nameof(BangDestroy), 3);
             }
             else
             {
@@ -109,13 +110,9 @@ namespace Lang.ChainLetterJam
             }
         }
 
-        void BangDestroyAndRestart()
-        {
-            BangDestroy();
-        }
-
         void BangDestroy()
         {
+            CurrentState = LetterBoxStates.Destroyed;
             rigidBody.AddExplosionForce(1500f, Vector3.zero, 100);
             Destroy(gameObject, 3);
         }
@@ -123,7 +120,7 @@ namespace Lang.ChainLetterJam
         internal void SetUi(Vector3 position)
         {
             uiPosition = position;
-            IsUI = true;
+            CurrentState = LetterBoxStates.Menu;
         }
 
         internal void SetRandomLetter(string wanted)
@@ -140,8 +137,9 @@ namespace Lang.ChainLetterJam
             material.SetTexture(AlbedoTextureMapName, texture2D);
         }
 
-        internal void Win()
+        internal void Win(Vector3 position)
         {
+            uiPosition = position;
             CurrentState = LetterBoxStates.Win;
         }
 

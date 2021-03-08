@@ -30,6 +30,7 @@ namespace Lang.ChainLetterJam
 
         public Level[] Levels = new[]
         {
+            /*
             new Level
             {
                 Word = "a",
@@ -40,8 +41,8 @@ namespace Lang.ChainLetterJam
                 Word = "b",
                 CriticalMassLetterCount = 10
             },
-
-            /*
+            */
+            
             new Level
             {
                 Word = "yannick",
@@ -62,8 +63,6 @@ namespace Lang.ChainLetterJam
                 Word = "miziziziz",
                 CriticalMassLetterCount = 30
             },
-            */
-
         };
 
         void Awake()
