@@ -19,8 +19,10 @@ namespace Lang.ChainLetterJam
         public Material material;
 
         public bool IsSnagged = false;
+        bool IsFwoop = false;
         CompletedWord completedWord;
         float moveToCompletedSpeed = 0.1f;
+        float fwoopRate = 0.01f;
         int snaggedPosition;
 
         bool IsUI = false;
@@ -42,6 +44,11 @@ namespace Lang.ChainLetterJam
             if (IsUI)
             {
                 MoveTo(uiPosition, Vector3.one);
+            }
+            else if (IsFwoop)
+            {
+                transform.localScale = transform.localScale + (transform.localScale * fwoopRate);
+                rigidBody.AddForce(-transform.position.normalized * gravity * 1.5f);
             }
             else if (IsSnagged)
             {
@@ -84,7 +91,6 @@ namespace Lang.ChainLetterJam
             {
                 BangDestroy();
             }
-            
         }
 
         void BangDestroyAndRestart()
@@ -115,6 +121,12 @@ namespace Lang.ChainLetterJam
             var texture2D = letterTexturesInput[UnityEngine.Random.Range(0, letterTexturesInput.Length - 1)];
             name = texture2D.name;
             material.SetTexture(AlbedoTextureMapName, texture2D);
+        }
+
+        internal void Fwoop()
+        {
+            IsFwoop = true;
+            Destroy(gameObject, 9);
         }
 
         internal void Snagged(CompletedWord completedWord)

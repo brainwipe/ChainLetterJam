@@ -6,23 +6,19 @@ namespace Lang.ChainLetterJam
 {
     public class LetterBoxFactory : MonoBehaviour
     {
-        public Yellowy yellowy;
         public LetterBox prefab;
         public CompletedWord completedWord;
         public float spawnTimeSeconds = 3f;
         float spawnTimeRemaining;
         public float distanceToStartFrom = 9;
-        bool halt { 
-            get => halt1; 
-            set => halt1 = value; 
-        }
+        public int boxCount;
+        bool halt;
 
         public Transform W;
         public Transform I;
         public Transform N;
 
         List<LetterBox> LetterBoxes = new List<LetterBox>();
-        private bool halt1;
 
         private void Awake()
         {
@@ -52,7 +48,13 @@ namespace Lang.ChainLetterJam
         {
             if (halt) return;
             var letterBox = CreateLetter();
-            letterBox.SetRandomLetter(yellowy.CurrentLetter);
+            letterBox.SetRandomLetter(GameManager.Instance.CurrentLetter);
+            boxCount++;
+            if (boxCount >= GameManager.Instance.CurrentLevel.CriticalMassLetterCount)
+            {
+                halt = true;
+                GameManager.Instance.Lose();
+            }
         }
 
         internal void Resume()
@@ -65,6 +67,7 @@ namespace Lang.ChainLetterJam
         {
             Debug.Log("Factory reset");
             BangTheLetters();
+            boxCount = 0;
             Invoke(nameof(KeepGoing), 5);
         }
 
@@ -108,5 +111,19 @@ namespace Lang.ChainLetterJam
             n.SetUi(N.position);
         }
 
+        internal void Lose()
+        {
+            for (int i = 1; i < 100; i++)
+            {
+                var letterBox = CreateLetter();
+                letterBox.SetLetter("F");
+            }
+
+            foreach(var letterBox in LetterBoxes)
+            {
+                letterBox.Fwoop();
+            }
+            
+        }
     }
 }

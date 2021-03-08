@@ -8,9 +8,12 @@ namespace Lang.ChainLetterJam.UserInterface
 
     public class Menu : MonoBehaviour
     {
+        [SerializeField]
+        Fader fader;
+
         public void OnPlayGame()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            fader.FadeToLevel(1);
         }
 
         public void OnQuit()

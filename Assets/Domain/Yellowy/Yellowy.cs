@@ -8,17 +8,6 @@ namespace Lang.ChainLetterJam
     {
         public float speed = 2;
         public float direction = 0;
-        string[] words = new[]
-        {
-            "a",
-            "b",
-            //"miziziziz",
-            //"vimlark",
-            //"zyger",
-            //"yannick",
-        };
-        int currentWord = 0;
-        int currentPosition = 0;
         [SerializeField]
         CompletedWord completedWord;
 
@@ -42,28 +31,12 @@ namespace Lang.ChainLetterJam
             if (collision.transform.CompareTag(LetterBox.Tag))
             {
                 var letterBox = collision.transform.GetComponent<LetterBox>();
-                if (!letterBox.IsSnagged && CurrentLetter == letterBox.name.ToLower())
+                if (!letterBox.IsSnagged && GameManager.Instance.CurrentLetter == letterBox.name.ToLower())
                 {
-                    Debug.Log($"Snagged {CurrentLetter}");
                     letterBox.Snagged(completedWord);
-
-                    currentPosition++;
-                    if (currentPosition == words[currentWord].Length)
-                    {
-                        currentWord++;
-                        if (currentWord == words.Length)
-                        {
-                            GameManager.Instance.Win();
-                            return;
-                        }
-                        currentPosition = 0;
-                        GameManager.Instance.WordComplete();
-                    }
-                    
+                    GameManager.Instance.NextLetter();
                 }
             }
         }
-
-        public string CurrentLetter => words[currentWord].Substring(currentPosition, 1);
     }
 }

@@ -4,7 +4,6 @@
 1 hr
 Boxes, gravity
 
-
 ## Day 2
 2 hr
 Player movement
@@ -20,14 +19,32 @@ Completing word boom
 # Day 4
 1 hr
 Fixed the duplicate factory bug
+Menu
 
+# Day 5
+2 hr
+Red Wizard!
+
+# Day 6
+2 hr
+Yellowy
+End game stuff
+
+# Day 7
+Fade between scenes
+
+# Day 8,9
+Weekend - nothing!
+
+# Day 10
+Most game systems in place
 
 
 ## TODO
-3D models
-Shader for letters
-Menus
+Shader for letters or just change base albedo?
+Menu - title and controls
 Sound
+Music
 JUICY JUICE	
 
 # Links
