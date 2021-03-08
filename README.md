@@ -41,11 +41,17 @@ Most game systems in place
 
 
 ## TODO
+Make letters appear just outside of view box rather than on unit square
 Shader for letters or just change base albedo?
 Menu - title and controls
 Sound
 Music
 JUICY JUICE	
+	Little spinning light Cube in Wiz staff
+	Particles
+		Touching letters fireworkds
+
+
 
 # Links
 miziziziz Wordman Saves the Day https://nartier.itch.io/wordman-saves-the-day

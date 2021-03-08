@@ -32,24 +32,25 @@ namespace Lang.ChainLetterJam
         {
             new Level
             {
-                Word = "miziziziz",
-                CriticalMassLetterCount = 10
-            },
-            new Level
-            {
-                Word = "vimlark",
-                CriticalMassLetterCount = 10
+                Word = "yannick",
+                CriticalMassLetterCount = 40
             },
             new Level
             {
                 Word = "zyger",
-                CriticalMassLetterCount = 10
+                CriticalMassLetterCount = 30
             },
             new Level
             {
-                Word = "yannick",
-                CriticalMassLetterCount = 10
-            }
+                Word = "vimlark",
+                CriticalMassLetterCount = 30
+            },
+            new Level
+            {
+                Word = "miziziziz",
+                CriticalMassLetterCount = 30
+            },
+
         };
 
         void Awake()

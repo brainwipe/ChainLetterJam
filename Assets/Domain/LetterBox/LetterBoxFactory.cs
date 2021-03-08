@@ -10,9 +10,9 @@ namespace Lang.ChainLetterJam
         public CompletedWord completedWord;
         public float spawnTimeSeconds = 3f;
         float spawnTimeRemaining;
-        public float distanceToStartFrom = 9;
         public int boxCount;
         bool halt;
+        Camera cam;
 
         public Transform W;
         public Transform I;
@@ -23,6 +23,7 @@ namespace Lang.ChainLetterJam
         private void Awake()
         {
             spawnTimeRemaining = spawnTimeSeconds;
+            cam = Camera.main;
         }
 
         void Update()
@@ -38,10 +39,37 @@ namespace Lang.ChainLetterJam
         LetterBox CreateLetter()
         {
             var letterBox = Instantiate(prefab);
-            var unitCircle = Random.insideUnitCircle.normalized;
-            letterBox.transform.position = new Vector3(unitCircle.x, unitCircle.y, 0) * distanceToStartFrom;
+            letterBox.transform.position = GetPosition();
             LetterBoxes.Add(letterBox);
             return letterBox;
+        }
+
+        Vector3 GetPosition()
+        {
+            var side = Random.Range(0, 4);
+            var x = 0;
+            var y = 0;
+            switch(side)
+            {
+                case 0: 
+                    x = 0;
+                    y = Random.Range(0, cam.pixelHeight);
+                    break;
+                case 1:
+                    x = cam.pixelWidth;
+                    y = Random.Range(0, cam.pixelHeight);
+                    break;
+                case 2:
+                    x = Random.Range(0, cam.pixelWidth);
+                    y = 0;
+                    break;
+                case 3:
+                    x = Random.Range(0, cam.pixelWidth);
+                    y = cam.pixelHeight;
+                    break;
+            }
+
+            return cam.ScreenToWorldPoint(new Vector3(x, y, -cam.transform.position.z));
         }
 
         void Spawn()
@@ -113,7 +141,7 @@ namespace Lang.ChainLetterJam
 
         internal void Lose()
         {
-            for (int i = 1; i < 100; i++)
+            for (int i = 1; i < 30; i++)
             {
                 var letterBox = CreateLetter();
                 letterBox.SetLetter("F");
