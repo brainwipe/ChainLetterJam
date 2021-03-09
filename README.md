@@ -40,18 +40,36 @@ Weekend - nothing!
 Most game systems in place
 Make letters appear just outside of view box rather than on unit square
 Shader for letters, change colours
+Menu - title and controls
+
+# Day 11 Tue
+Music and Sound
+ 
+# Day 12 Wed
+
+# Day 13 Thu
+
+# Day 14 Fri
+Upload to itch.io
 
 ## TODO
-
-Menu - title and controls
-Sound
-Music
 JUICY JUICE	
+	How do you know you're doing badly?
+		Vignette
 	Little spinning light Cube in Wiz staff
 	Particles
-		Touching letters fireworkds
+		Any collision?
+		Touching letters fireworks
+	Emission/Bloom on letters
+	Slight recolouring of letter states
+		Make red letters yellow (change instructions on start)
+		Make default letters a light grey
 
-
+## If Time
+Check box for music
+Win sounds
+Wub Wub for death
+Difficulty Balancing
 
 # Links
 miziziziz Wordman Saves the Day https://nartier.itch.io/wordman-saves-the-day

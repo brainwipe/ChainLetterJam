@@ -25,16 +25,20 @@ namespace Lang.ChainLetterJam
         int snaggedPosition;
 
         Vector3 uiPosition;
-
-        [SerializeField]
         Transform cameraPosition;
+        AudioSource audioSource;
+        [SerializeField]
+        AudioClip hit;
+        [SerializeField]
+        AudioClip snag;
 
         void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
             myCollider = GetComponent<Collider>();
             material = GetComponent<MeshRenderer>().material;
-            cameraPosition = GameObject.Find("Main Camera").transform;
+            cameraPosition = Camera.main.transform;
+            audioSource = GetComponent<AudioSource>();
         }
 
         void FixedUpdate()
@@ -60,6 +64,18 @@ namespace Lang.ChainLetterJam
             {
                 rigidBody.AddForce(-transform.position.normalized * gravity);
             }
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            if (collision.transform.CompareTag("Yellowy"))
+            {
+                audioSource.clip = hit;
+                audioSource.pitch = UnityEngine.Random.Range(0.6f, 1.4f);
+                audioSource.volume = UnityEngine.Random.Range(0.6f, 0.8f);
+                audioSource.Play();
+            }
+            
         }
 
         void CheckState()
@@ -131,7 +147,6 @@ namespace Lang.ChainLetterJam
                 return;
             }
 
-
             var texture2D = letterTexturesInput[UnityEngine.Random.Range(0, letterTexturesInput.Length - 1)];
             name = texture2D.name;
             material.SetTexture(AlbedoTextureMapName, texture2D);
@@ -157,6 +172,10 @@ namespace Lang.ChainLetterJam
             CurrentState = LetterBoxStates.Snagged;
             snaggedPosition = completedWord.Snag();
             rigidBody.isKinematic = true;
+            audioSource.clip = snag;
+            audioSource.pitch = 1;
+            audioSource.volume = 1;
+            audioSource.Play();
         }
     }
 }
