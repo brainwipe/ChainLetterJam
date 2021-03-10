@@ -28,6 +28,8 @@ namespace Lang.ChainLetterJam
         public Level CurrentLevel => currentLevelIndex < Levels.Length ? Levels[currentLevelIndex] : Levels[Levels.Length - 1];
         public string CurrentLetter => currentLetterIndex < CurrentLevel.Word.Length ? CurrentLevel.Word.Substring(currentLetterIndex, 1) : "F";
 
+        public float HowNearToDeath => (float)letterBoxFactory.boxCount / (float)CurrentLevel.CriticalMassLetterCount;
+
         public Level[] Levels = new[]
         {
             /*

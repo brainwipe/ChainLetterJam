@@ -65,6 +65,8 @@ JUICY JUICE
 		Make red letters yellow (change instructions on start)
 		Make default letters a light grey
 
+Web Build
+
 ## If Time
 Check box for music
 Win sounds

@@ -10,6 +10,7 @@ namespace Lang.ChainLetterJam.UserInterface
 
         public Transform[] title = null;
         List<LetterBox> letterBoxes = new List<LetterBox>();
+        PostProcess postProcess;
 
         [SerializeField]
         Fader fader;
@@ -20,10 +21,12 @@ namespace Lang.ChainLetterJam.UserInterface
         public void Awake()
         {
             cam = Camera.main;
+            postProcess = FindObjectOfType<PostProcess>();
         }
 
         public void Start()
         {
+            postProcess.Reset();
             foreach(var letter in title)
             {
                 letterBoxes.Add(CreateLetter(letter.name, letter.position));
