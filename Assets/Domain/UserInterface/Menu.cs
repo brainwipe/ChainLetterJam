@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,12 +17,15 @@ namespace Lang.ChainLetterJam.UserInterface
         Fader fader;
 
         Camera cam;
+        public AudioSource music;
+        public TMP_Text  musicText;
         public LetterBox letterBoxPrefab;
 
         public void Awake()
         {
             cam = Camera.main;
             postProcess = FindObjectOfType<PostProcess>();
+            music.enabled = false;
         }
 
         public void Start()
@@ -40,6 +44,19 @@ namespace Lang.ChainLetterJam.UserInterface
                 letterBox.Boom();
             }
             fader.FadeToLevel(1);
+        }
+
+        public void OnToggleMusic()
+        {
+            music.enabled = !music.enabled;
+            if (music.enabled)
+            {
+                musicText.text = "Music On";
+            }
+            else
+            {
+                musicText.text = "Music Off";
+            }
         }
 
         public void OnQuit()

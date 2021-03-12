@@ -9,7 +9,10 @@ namespace Lang.ChainLetterJam
         bool isLose = false;
         float growthRate = 0.0025f;
 
-        
+        void Start()
+        {
+        }
+
         void Update()
         {
             if (isLose)

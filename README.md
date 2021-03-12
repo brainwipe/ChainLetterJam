@@ -1,4 +1,8 @@
 # ChainLetterJam
+
+Link to itchio page
+Link to YT
+
  
 ## Day 1
 1 hr
@@ -31,48 +35,54 @@ Yellowy
 End game stuff
 
 # Day 7
+1 hr
 Fade between scenes
 
 # Day 8,9
-Weekend - nothing!
+Weekend - nothing! Family stuff.
 
 # Day 10
+1 hr
 Most game systems in place
 Make letters appear just outside of view box rather than on unit square
 Shader for letters, change colours
 Menu - title and controls
 
 # Day 11 Tue
+2 hr
 Music and Sound
  
 # Day 12 Wed
-
-# Day 13 Thu
-
-# Day 14 Fri
-Upload to itch.io
-
-## TODO
-JUICY JUICE	
 	How do you know you're doing badly?
 		Vignette
-	Little spinning light Cube in Wiz staff
-	Particles
-		Any collision?
-		Touching letters fireworks
+	Particles racing in on a sphere
 	Emission/Bloom on letters
-	Slight recolouring of letter states
+	
+
+# Day 13 Thu
+1 hr
+Little spinning light Cube in Wiz staff
+Slight recolouring of letter states
 		Make red letters yellow (change instructions on start)
 		Make default letters a light grey
 
+# Day 14 Fri
+2 hr
+Difficulty balancing
 Web Build
+Upload to itch.io
 
-## If Time
-Check box for music
-Win sounds
-Wub Wub for death
-Difficulty Balancing
+# Things That didn't Make the cut
+
+- Particles
+- Any collision?
+- Touching letters fireworks
+- Yellowy effected by collision
+- Check box for music
+- Win sounds
+- Wub Wub for death
 
 # Links
 miziziziz Wordman Saves the Day https://nartier.itch.io/wordman-saves-the-day
 vimlark Word Bounce				https://vimlark.itch.io/word-bounce
+Zyger's Comic Sans				https://zyger.itch.io/comic-sans

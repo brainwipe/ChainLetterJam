@@ -8,7 +8,6 @@ namespace Lang.ChainLetterJam
     {
         public LetterBox prefab;
         public CompletedWord completedWord;
-        public float spawnTimeSeconds = 3f;
         float spawnTimeRemaining;
         public int boxCount;
         bool halt;
@@ -24,8 +23,12 @@ namespace Lang.ChainLetterJam
 
         private void Awake()
         {
-            spawnTimeRemaining = spawnTimeSeconds;
             cam = Camera.main;
+        }
+
+        private void Start()
+        {
+            spawnTimeRemaining = GameManager.Instance.CurrentLevel.SpawnIntervalSeconds;
         }
 
         void Update()
@@ -34,7 +37,7 @@ namespace Lang.ChainLetterJam
             if (spawnTimeRemaining < 0)
             {
                 Spawn();
-                spawnTimeRemaining = spawnTimeSeconds;
+                spawnTimeRemaining = GameManager.Instance.CurrentLevel.SpawnIntervalSeconds;
             }
         }
 
@@ -91,7 +94,7 @@ namespace Lang.ChainLetterJam
         internal void Resume()
         {
             //halt = false;
-            spawnTimeRemaining = spawnTimeSeconds;
+            spawnTimeRemaining = GameManager.Instance.CurrentLevel.SpawnIntervalSeconds;
         }
 
         internal void Reset()

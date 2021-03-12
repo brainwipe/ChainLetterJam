@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lang.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace Lang.ChainLetterJam
 
         public static string Tag = "LetterBox";
         static string AlbedoTextureMapName = "LetterTexture";
+        static string LetterColorName = "LetterColor";
+        static string GlowName = "Glow";
+        
 
         Collider myCollider;
         Rigidbody rigidBody;
@@ -20,8 +24,9 @@ namespace Lang.ChainLetterJam
         public Material material;
 
         CompletedWord completedWord;
-        float moveToCompletedSpeed = 0.1f;
+        float moveToCompletedSpeed = 0.08f;
         float fwoopRate = 0.01f;
+        float gravityPull = 1.8f;
         int snaggedPosition;
 
         Vector3 uiPosition;
@@ -46,7 +51,6 @@ namespace Lang.ChainLetterJam
             CheckState();
 
             if (CurrentState.IsDestroyed) return;
-
             if (CurrentState.IsUI)
             {
                 MoveTo(uiPosition, Vector3.one);
@@ -54,7 +58,7 @@ namespace Lang.ChainLetterJam
             else if (CurrentState.IsFwoop)
             {
                 transform.localScale = transform.localScale + (transform.localScale * fwoopRate);
-                rigidBody.AddForce(-transform.position.normalized * gravity * 1.5f);
+                rigidBody.AddForce(-transform.position.normalized * gravity * gravityPull);
             }
             else if (CurrentState.IsSnagged)
             {
@@ -68,11 +72,16 @@ namespace Lang.ChainLetterJam
 
         void OnCollisionEnter(Collision collision)
         {
-            if (collision.transform.CompareTag("Yellowy"))
+            var velocity = collision.relativeVelocity.sqrMagnitude;
+            if (velocity > 9)
             {
+                Debug.Log(velocity);
                 audioSource.clip = hit;
                 audioSource.pitch = UnityEngine.Random.Range(0.6f, 1.4f);
-                audioSource.volume = UnityEngine.Random.Range(0.6f, 0.8f);
+
+                var baseVolume = velocity.Remap(10, 80, 0.2f, 0.6f);
+
+                audioSource.volume = baseVolume;
                 audioSource.Play();
             }
             
@@ -91,7 +100,8 @@ namespace Lang.ChainLetterJam
                 CurrentState = LetterBoxStates.Default;
             }
 
-            material.SetColor("LetterColor", CurrentState.Color);
+            material.SetColor(LetterColorName, CurrentState.Color);
+            material.SetFloat(GlowName, CurrentState.Glow);
         }
 
         void MoveTo(Vector3 place, Vector3 scale)
@@ -141,7 +151,7 @@ namespace Lang.ChainLetterJam
 
         internal void SetRandomLetter(string wanted)
         {
-            if (UnityEngine.Random.Range(0, 2) == 0)
+            if (UnityEngine.Random.Range(0, 100) < GameManager.Instance.CurrentLevel.PercentageLetter)
             {
                 SetLetter(wanted);
                 return;
